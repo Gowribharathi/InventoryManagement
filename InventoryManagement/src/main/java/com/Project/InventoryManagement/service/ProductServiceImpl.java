@@ -3,6 +3,7 @@ package com.Project.InventoryManagement.service;
 import java.util.List;
 
 
+
 import java.util.Optional;
 
 import com.Project.InventoryManagement.entity.Product;
@@ -11,7 +12,8 @@ import com.Project.InventoryManagement.exception.NoRecordFoundException;
 import com.Project.InventoryManagement.repository.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
+@Service
 public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
