@@ -5,7 +5,10 @@ package com.Project.InventoryManagement.controller;
 import java.util.List;
 
 
+
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import com.Project.InventoryManagement.entity.Product;
 import com.Project.InventoryManagement.service.ProductService;
@@ -35,7 +38,7 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Product> saveProduct(@RequestBody Product product)
+	public ResponseEntity<Product> saveProduct(@Valid @RequestBody Product product)
 	{
 		return new ResponseEntity<Product> (productService.saveProduct(product),HttpStatus.CREATED);
 	}
@@ -47,7 +50,7 @@ public class ProductController {
 	}
 	
 	@PutMapping ("/{id}")
-	public Product  updateProduct(@PathVariable ("id") long id,@RequestBody Product product)
+	public Product  updateProduct(@PathVariable ("id") long id,@Valid @RequestBody Product product)
 	{
 		return productService.updateproduct(id, product);
 	}

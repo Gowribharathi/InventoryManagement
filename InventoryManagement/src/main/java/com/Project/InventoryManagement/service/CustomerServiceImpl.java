@@ -5,8 +5,9 @@ import java.util.Optional;
 
 import com.Project.InventoryManagement.entity.Customer;
 import com.Project.InventoryManagement.exception.GivenIdNotFoundException;
+import com.Project.InventoryManagement.exception.NameNotFoundException;
 import com.Project.InventoryManagement.exception.NoRecordFoundException;
-import com.Project.InventoryManagement.exception.ResourceNotFoundException;
+
 import com.Project.InventoryManagement.repository.CustomerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +69,52 @@ CustomerRepository customerRepository;
 	@Override
 	public String deleteCustomer(long id) {
 		Customer customer=new Customer();
-		customer=customerRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException("Customer","id",id));
+		customer=customerRepository.findById(id).orElseThrow( ()-> new NoRecordFoundException());
 		customerRepository.deleteById(id);
 		return "Record is deleted successfully";
 	}
 
+	@Override
+	public List<Customer> getCustomerByFirstName(String firstName) {
+		List<Customer> customer= customerRepository.getByFirstName(firstName);
+		if(customer.isEmpty()) {
+			throw new NameNotFoundException();
+		}else {
+		return customer;
+	}
+
+}
+
+	@Override
+	public List<Customer> getCustomerByLastName(String lastName) {
+		List<Customer> customer= customerRepository.getByLastName(lastName);
+		if(customer.isEmpty()) {
+			throw new NameNotFoundException();
+		}else {
+		return customer;
+        }
+	    }
+
+	@Override
+	public List<Customer> getCustomerByFullName(String firstName, String lastName) {
+		List<Customer> customer= customerRepository.getCustomerByFullName(firstName,lastName);
+		if(customer.isEmpty()) {
+			throw new NameNotFoundException();
+		}else 
+		{
+		return customer;
+        }
+	}
+
+	@Override
+	public Optional<Customer> getCustomerByEmail(String emailId) {
+		Optional<Customer> customer=customerRepository.findByEmailId(emailId);
+		if(customer.isEmpty()) {
+			throw new NoRecordFoundException();
+		}else 
+		{
+		return customer;
+        }
+		
+	}
 }

@@ -1,7 +1,10 @@
 package com.Project.InventoryManagement.controller;
 
 import java.util.List;
+
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import com.Project.InventoryManagement.entity.Supplier;
 import com.Project.InventoryManagement.service.SupplierService;
@@ -32,7 +35,7 @@ public class SupplierController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Supplier> saveSupplier(@RequestBody Supplier supplier)
+	public ResponseEntity<Supplier> saveSupplier(@Valid @RequestBody Supplier supplier)
 	{
 		return new ResponseEntity<Supplier>(supplierService.saveSupplier(supplier),HttpStatus.CREATED);
 	}
@@ -44,7 +47,7 @@ public class SupplierController {
 	}
 	
 	@PutMapping("/{id}")
-	public Supplier updateSupplier(@PathVariable ("id") long id,@RequestBody Supplier supplier)
+	public Supplier updateSupplier(@PathVariable ("id") long id,@Valid @RequestBody Supplier supplier)
 	{
 		return supplierService.updateSupplier(id,supplier);
 	}

@@ -1,5 +1,5 @@
 package com.Project.InventoryManagement.exception;
 
-public class NameNotFoundException {
+public class NameNotFoundException extends RuntimeException {
 
 }

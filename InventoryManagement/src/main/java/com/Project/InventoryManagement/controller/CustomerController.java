@@ -1,7 +1,13 @@
-package com.Project.InventoryManagement.controller;
+  package com.Project.InventoryManagement.controller;
 
 import java.util.List;
+
+
+ 
+
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import com.Project.InventoryManagement.entity.Customer;
 import com.Project.InventoryManagement.service.CustomerService;
@@ -31,7 +37,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer)
+	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer)
 	{
 		return new ResponseEntity<Customer> (customerService.saveCustomer(customer),HttpStatus.CREATED);
 	}
@@ -43,7 +49,7 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/{id}")
-	public Customer updateCustomer(@PathVariable("id") long id,@RequestBody Customer customer)
+	public Customer updateCustomer(@PathVariable("id") long id,@Valid @RequestBody Customer customer)
 	{
 		return customerService.updateCustomer(id,customer);
 	}
@@ -53,5 +59,32 @@ public class CustomerController {
 	{
 		return new ResponseEntity<String> (customerService.deleteCustomer(id),HttpStatus.OK);
 	}
+	
+	@GetMapping("/firstname/{firstName}")
+	public List<Customer> getCustomerByFirstName(@PathVariable("firstName") String firstName)
+	{
+		return customerService.getCustomerByFirstName(firstName);
+	}
+	
+	@GetMapping("/lastName/{lastName}")
+	public List<Customer> getCustomerByLastName(@PathVariable("lastName") String lastName)
+	{
+		return customerService.getCustomerByLastName(lastName);
+	}
+	
+	@GetMapping("/GetCustomerByFullName/{firstName}/{lastName}")
+	public List<Customer> getCustomerByFullName(@PathVariable ("firstName") String firstName, @PathVariable ("lastName") String lastName)
+	{
+		return customerService.getCustomerByFullName(firstName,lastName);
+	}
+	
+	@GetMapping("/GetCustomerByEmail/{emailId}")
+	public Optional<Customer> getCustomerByEmail(@PathVariable ("emailId") String emailId)
+	{
+		return customerService.getCustomerByEmail(emailId);
+	}
+	
+	
+	
 
 }
